@@ -9,14 +9,14 @@ class BaseManager:
     def __init__(self, app):
         self.items = {}
         self._app = weakref.ref(app)
-        self.config = app.config.get(self.CONFIG_KEY)
+        self.config = app.config.get(self.CONFIG_KEY, {})
 
     @property
     def app(self):
         return self._app()
 
     @asyncio.coroutine
-    def init_manager(self):
+    def start(self):
         pass
 
 

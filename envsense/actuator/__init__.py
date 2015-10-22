@@ -4,6 +4,8 @@ from envsense.manager import BaseManager
 
 class ActuatorManager(BaseManager):
 
+    CONFIG_KEY = 'actuators'
+
     def __init__(self,  app):
         super(ActuatorManager, self).__init__(app)
         # Add sensors
@@ -12,14 +14,11 @@ class ActuatorManager(BaseManager):
     @asyncio.coroutine
     def start(self):
         for actuator in self.items.values():
-            yield from actuator.start()
+            asyncio.async(actuator.start(), loop=asyncio.get_event_loop())
 
 
-@asyncio.coroutine
 def factory(app):
-    mng = ActuatorManager(app)
-    yield from mng.start()
-    return mng
+    return ActuatorManager(app)
 
 
 class BaseActuator:

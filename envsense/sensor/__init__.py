@@ -5,6 +5,8 @@ from envsense.manager import BaseManager
 
 class SensorManager(BaseManager):
 
+    CONFIG_KEY = 'sensors'
+
     def __init__(self,  app):
         super(SensorManager, self).__init__(app)
         # Add sensors
@@ -18,14 +20,12 @@ class SensorManager(BaseManager):
     @asyncio.coroutine
     def start(self):
         for sensor in self.items.values():
-            yield from sensor.start()
+            asyncio.async(sensor.start(), loop=asyncio.get_event_loop())
 
 
 @asyncio.coroutine
 def factory(app):
-    mng = SensorManager(app)
-    yield from mng.start()
-    return mng
+    return SensorManager(app)
 
 
 class BaseSensor:
