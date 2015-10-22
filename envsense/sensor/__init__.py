@@ -1,4 +1,5 @@
 import asyncio
+import upm
 from envsense.manager import BaseManager
 
 
@@ -7,7 +8,12 @@ class SensorManager(BaseManager):
     def __init__(self,  app):
         super(SensorManager, self).__init__(app)
         # Add sensors
-        # self.items['name'] = Sensor(refresh=1)
+        self.items['LightSensor'] = upm.LightSensor(refresh=60)
+        self.items['TempSensor'] = upm.TempSensor(refresh=5*60)
+        self.items['UVSensor'] = upm.UVSensor(refresh=60)
+        self.items['TouchSensor'] = upm.TouchSensor(refresh=0.1)
+        self.items['SoundSensor'] = upm.SoundSensor(refresh=10)
+        self.items['GasSensor'] = upm.GasSensor(refresh=10)
 
     @asyncio.coroutine
     def start(self):
