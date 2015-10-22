@@ -1,14 +1,19 @@
 import asyncio
 import json
+import weakref
 from aiohttp import web
 
 
 class EnvSenseWebApplication:
 
     def __init__(self, app, *args, **kwargs):
-        self.app = app
+        self._app = weakref.ref(app)
         self.server = web.Application(*args, **kwargs)
         self.server.router.add_route('GET', '/', self.default_handler)
+
+    @property
+    def app(self):
+        return self._app()
 
     @asyncio.coroutine
     def default_handler(self, request):

@@ -2,20 +2,23 @@ import asyncio
 import yaml
 
 
-class EnvSenveApp:
+class EnvSenseApp:
 
-    def __init__(self, config_file_path):
+    def __init__(self, config_file_path=None):
         self.sensor_manager = None
         self.actuator_manager = None
         self.web_app = None
         self.logic_manager = None
 
-        try:
-            with open(config_file_path, 'r') as stream:
-                self.config = yaml.load(stream)
-            self.load_modules()
-        except Exception as ex:
-            print(ex)
+        if config_file_path:
+            try:
+                with open(config_file_path, 'r') as stream:
+                    self.config = yaml.load(stream)
+            except Exception as ex:
+                print(ex)
+                raise
+
+        self.load_modules()
 
     def load_modules(self):
         self.sensor_manager = asyncio.get_event_loop().run_until_complete(self.create_sensor_manager())
