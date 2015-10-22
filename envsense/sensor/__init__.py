@@ -17,7 +17,6 @@ class SensorManager(BaseManager):
             asyncio.async(sensor.start(), loop=asyncio.get_event_loop())
 
 
-@asyncio.coroutine
 def factory(app):
     return SensorManager(app)
 
