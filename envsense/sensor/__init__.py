@@ -26,12 +26,16 @@ class BaseSensor:
 
     def __init__(self, refresh=1, *args, **kwargs):
         self.refresh = refresh
+        self.value = None
 
     @asyncio.coroutine
     def start(self):
-        self.do_reading()
+        self.value = self.do_reading()
         yield from asyncio.sleep(self.refresh)
 
     def do_reading(self):
         pass
+
+
+
 

@@ -23,7 +23,7 @@ def factory(app):
     return mng
 
 
-class BaseActuator:
+class BaseLogic:
 
     def __init__(self, app, refresh=1, *args, **kwargs):
         self.refresh = refresh
@@ -40,3 +40,10 @@ class BaseActuator:
 
     def do_process(self):
         pass
+
+
+class AlertLightLogic(BaseLogic):
+
+    def do_process(self):
+        if self.app.sensor_manager.items['light'].value > 100:
+            self.app.actuator_manager.items['lcd'].set_alert('pepito')
