@@ -14,8 +14,8 @@ alarm in case of danger or to warn about risk situations.
 Members
 =======
 
-* Marta Tolós (github user: martatolos)
-* Javier Lago
-* Alfred Santacatalina (github user: alfred82santa)
+* Marta Tolós (github user: @martatolos)
+* Javier Lago (github user: @xlake)
+* Alfred Santacatalina (github user: @alfred82santa)
 
 
