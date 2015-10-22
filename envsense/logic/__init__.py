@@ -5,6 +5,8 @@ from envsense.manager import BaseManager
 
 class LogicManager(BaseManager):
 
+    CONFIG_KEY = 'logics'
+
     def __init__(self,  app):
         super(LogicManager, self).__init__(app)
         # Add sensors
@@ -13,14 +15,11 @@ class LogicManager(BaseManager):
     @asyncio.coroutine
     def start(self):
         for logic in self.items.values():
-            yield from logic.start()
+            asyncio.async(logic.start(), loop=asyncio.get_event_loop())
 
 
-@asyncio.coroutine
 def factory(app):
-    mng = LogicManager(app)
-    yield from mng.start()
-    return mng
+    return LogicManager(app)
 
 
 class BaseLogic:

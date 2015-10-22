@@ -8,6 +8,7 @@ class EnvSenseWebApplication:
 
     def __init__(self, app, *args, **kwargs):
         self._app = weakref.ref(app)
+        self.config = app.config.get('webserver', {})
         self.server = web.Application(*args, **kwargs)
         self.server.router.add_route('GET', '/', self.default_handler)
 
@@ -21,13 +22,12 @@ class EnvSenseWebApplication:
                             content_type='application/json',
                             status=200)
 
+    @asyncio.coroutine
+    def start(self):
+        yield from asyncio.get_event_loop().create_server(self.server.make_handler(),
+                                                          self.config.get('host', "0.0.0.0"),
+                                                          self.config.get('port', 8080))
 
-@asyncio.coroutine
+
 def factory(app):
-    webapp = EnvSenseWebApplication(app)
-    server_config = app.config.get('server')
-    yield from asyncio.get_event_loop().create_server(webapp.server.make_handler(),
-                                                      server_config.get('host', "0.0.0.0"),
-                                                      server_config.get('port', 8080))
-
-    return webapp
+    return EnvSenseWebApplication(app)
