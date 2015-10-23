@@ -5,7 +5,7 @@ class GasLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
         super(GasLogic, self).__init__(*args, **kwargs)
-        self.threshold = 70
+        self.threshold = 80
 
     @asyncio.coroutine
     def do_process(self):
@@ -91,4 +91,5 @@ class TouchLogic(BaseLogic):
     def do_process(self):
         if self.app.sensor_manager.items['TouchSensor'].value:
             self.app.logic_manager.items['BuzzerAlertLogic'].active = False
+            self.app.logic_manager.items['AlertLogic'].stop_buffer = True
 

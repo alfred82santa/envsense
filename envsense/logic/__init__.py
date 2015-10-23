@@ -98,8 +98,11 @@ class AlertLogic(BaseLogic):
     def __init__(self, *args, **kwargs):
         super(AlertLogic, self).__init__(*args, **kwargs)
         self.alerts = OrderedDict()
+        self.stop_buffer = False
 
     def set_alert(self, device_name, level, text, buzzer=False):
+        if device_name in self.alerts and level == self.ALERT and self.alerts[device_name]['level'] != self.ALERT:
+            self.stop_buffer = False
         self.alerts[device_name] = {'level': level, 'text': text, 'buzzer': buzzer}
 
     def remove_alert(self, device_name):
@@ -117,7 +120,7 @@ class AlertLogic(BaseLogic):
             actuator.color = (255, 0, 0)
             alrt = alerts[0]
             actuator.line_1 = alrt['text']
-            if len([a for a in alerts if a['buzzer']]):
+            if len([a for a in alerts if a['buzzer']]) and not self.stop_buffer:
                 self.app.logic_manager.items['BuzzerAlertLogic'].active = True
 
 
