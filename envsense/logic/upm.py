@@ -3,7 +3,7 @@ from envsense.logic import BaseLogic
 class GasLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(GasLogic, self).__init__(*args, **kwargs)
         self.threshold = 70
 
     def do_process(self):
@@ -16,7 +16,7 @@ class GasLogic(BaseLogic):
 class SoundLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(SoundLogic, self).__init__(*args, **kwargs)
         self.threshold = 70
 
     def do_process(self):
@@ -29,7 +29,7 @@ class SoundLogic(BaseLogic):
 class UVLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(UVLogic, self).__init__(*args, **kwargs)
         self.threshold_low = 0.5
         self.threshold_high = 0.7
 
@@ -45,7 +45,7 @@ class UVLogic(BaseLogic):
 class LightLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(LightLogic, self).__init__(*args, **kwargs)
         self.threshold = 15
 
     def do_process(self):
@@ -58,7 +58,7 @@ class LightLogic(BaseLogic):
 class TempLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(TempLogic, self).__init__(*args, **kwargs)
         self.threshold_low1 = 0
         self.threshold_low2 = -10
         self.threshold_high1 = 30
@@ -79,7 +79,7 @@ class TempLogic(BaseLogic):
 class TouchLogic(BaseLogic):
 
     def __init__(self, *args, **kwargs):
-        super(BaseLogic, self).__init__(*args, **kwargs)
+        super(TouchLogic, self).__init__(*args, **kwargs)
 
     def do_process(self):
         if self.app.sensor_manager.items['TouchLogic'].value:
