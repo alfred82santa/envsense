@@ -10,7 +10,7 @@ class LogicDeviceManager(BaseDeviceManager):
     def __init__(self,  app):
         super(LogicDeviceManager, self).__init__(app)
         # Add sensors
-        # self.items['name'] = Logic(app, refresh=1)
+        self.items['AlertLogic'] = AlertLogic(app, refresh=1)
 
     @asyncio.coroutine
     def start(self):
@@ -60,5 +60,4 @@ class AlertLogic(BaseLogic):
         del self.alerts[device_name]
 
     def do_process(self):
-        if self.app.sensor_manager.items['light'].value > 100:
-            self.app.actuator_manager.items['lcd'].set_alert('pepito')
+        pass
