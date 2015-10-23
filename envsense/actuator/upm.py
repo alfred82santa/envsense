@@ -54,12 +54,12 @@ class DisplayActuator(BaseActuator):
         super(DisplayActuator, self).__init__(refresh=refresh, *args, **kwargs)
         self.upm_sensor = i2clcd.Jhd1313m1(0, lcd_address, rgb_address)
         self.color = (255, 0, 0)
-        self.position = (0, 0)
+        self.cursor = (0, 0)
         self.text = "Hello"
 
     def do_writing(self):
         self.upm_sensor.setColor(*self.color)
-        self.upm_sensor.setPosition(*self.position)
+        self.upm_sensor.setCursor(*self.cursor)
         self.upm.write(self.text)
 
 
