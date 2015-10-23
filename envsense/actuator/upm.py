@@ -62,13 +62,13 @@ class DisplayActuator(BaseActuator):
         self.upm_sensor.setColor(*self.color)
         self.upm_sensor.setCursor(0, 0)
         self.upm_sensor.write(" " * 16)
-        self.upm_sensor.setCursor(0, 1)
+        self.upm_sensor.setCursor(1, 0)
         self.upm_sensor.write(" " * 16)
 
         self.upm_sensor.setCursor(0, 0)
         self.upm_sensor.write(self.line_1)
 
-        self.upm_sensor.setCursor(0, 1)
+        self.upm_sensor.setCursor(1, 0)
         self.upm_sensor.write(self.line_2)
 
     def get_structure(self):
