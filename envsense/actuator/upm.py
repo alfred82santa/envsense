@@ -61,7 +61,7 @@ class DisplayActuator(BaseActuator):
     def do_writing(self):
         self.upm_sensor.setColor(*self.color)
         self.upm_sensor.setCursor(*self.cursor)
-        self.upm.write(self.text)
+        self.upm_sensor.write(self.text)
 
 
 
