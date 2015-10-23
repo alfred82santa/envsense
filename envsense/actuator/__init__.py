@@ -9,7 +9,10 @@ class ActuatorDeviceManager(BaseDeviceManager):
     def __init__(self,  app):
         super(ActuatorDeviceManager, self).__init__(app)
         # Add sensors
-        # self.items['name'] = Actuator(refresh=1)
+        from .upm import LedActuator, BuzzerActuator, DisplayActuator
+        self.items['LedActuator'] = LedActuator(refresh=1)
+        self.items['BuzzerActuator'] = BuzzerActuator(refresh=1)
+        self.items['DisplayActuator'] = DisplayActuator(refresh=1)
 
     @asyncio.coroutine
     def start(self):
