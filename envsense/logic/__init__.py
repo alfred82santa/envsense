@@ -129,4 +129,13 @@ class AlertLogic(BaseLogic):
 
         actuator.line_2 = "A: {} - W: {} - I: {}".format(len(alerts), len(warns), len(infos))
 
+    def get_structure(self):
+        struct = super(AlertLogic, self).get_structure()
+        struct['functions']['set_alert'] = {'device_name': 'string',
+                                            'level': [self.ALERT, self.WARN, self.INFO],
+                                            'text': 'string',
+                                            'buzzer': 'bool'}
+        struct['functions']['remove_alert'] = {'device_name': 'string'}
+        return struct
+
 
