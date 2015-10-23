@@ -23,4 +23,4 @@ class BaseDeviceManager:
 class BaseDevice:
 
     def get_structure(self):
-        return {}
+        return {'properties': {}, 'readOnlyProperties': {}, 'functions': {}}

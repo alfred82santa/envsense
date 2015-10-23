@@ -10,7 +10,8 @@ class ActuatorDeviceManager(BaseDeviceManager):
         super(ActuatorDeviceManager, self).__init__(app)
         # Add sensors
         from .upm import LedActuator, BuzzerActuator, DisplayActuator
-        self.items['LedActuator'] = LedActuator(refresh=1)
+        self.items['GreenLedActuator'] = LedActuator(refresh=1, port=4)
+        self.items['RedLedActuator'] = LedActuator(refresh=1, port=8)
         self.items['BuzzerActuator'] = BuzzerActuator(refresh=1)
         self.items['DisplayActuator'] = DisplayActuator(refresh=1)
 
