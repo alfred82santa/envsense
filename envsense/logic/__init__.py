@@ -13,7 +13,15 @@ class LogicDeviceManager(BaseDeviceManager):
         # Add sensors
         self.items['AlertLogic'] = AlertLogic(app, refresh=0.1)
         self.items['BuzzerAlertLogic'] = BuzzerAlertLogic(app, refresh=0.5)
-        self.items['LedAlertLogic'] = BuzzerAlertLogic(app, refresh=0.5)
+        self.items['LedAlertLogic'] = LedAlertLogic(app, refresh=0.5)
+
+        from .upm import GasLogic, SoundLogic, UVLogic, LightLogic, TempLogic, TouchLogic
+        self.items['GasLogic'] = GasLogic(app, refresh=0.5)
+        self.items['SoundLogic'] = SoundLogic(app, refresh=0.5)
+        self.items['UVLogic'] = UVLogic(app, refresh=0.5)
+        self.items['LightLogic'] = LightLogic(app, refresh=0.5)
+        self.items['TempLogic'] = TempLogic(app, refresh=0.5)
+        self.items['TouchLogic'] = TouchLogic(app, refresh=0.1)
 
     @asyncio.coroutine
     def start(self):
