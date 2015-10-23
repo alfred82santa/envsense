@@ -117,9 +117,14 @@ class AlertLogic(BaseLogic):
 
         elif len(warns):
             actuator.color = (255, 255, 0)
+            alrt = warns[0]
+            actuator.line_1 = alrt['text']
             self.app.logic_manager.items['LedAlertLogic'].active = True
         else:
             actuator.color = (0, 255, 0)
+            if len(infos):
+                alrt = infos[0]
+                actuator.line_1 = alrt['text']
             self.app.logic_manager.items['LedAlertLogic'].active = False
 
         actuator.line_2 = "A: {} - W: {} - I: {}".format(len(alerts), len(warns), len(infos))
