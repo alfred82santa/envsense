@@ -17,6 +17,7 @@ class LightSensor(BaseSensor):
         # aprox value of lux
         return self.upm_sensor.value()
 
+
 class TempSensor(BaseSensor):
 
     def __init__(self, refresh=1, port=2, *args, **kwargs):
@@ -26,6 +27,7 @@ class TempSensor(BaseSensor):
     def do_reading(self):
         # Celsius
         return self.upm_sensor.value()
+
 
 class UVSensor(BaseSensor):
 
@@ -39,6 +41,13 @@ class UVSensor(BaseSensor):
         # Celsius
         return self.upm_sensor.value(self.aref, self.samples)
 
+    def get_structure(self):
+        struct = super(UVSensor, self).get_structure()
+        struct['properties']['aref'] = self.aref
+        struct['properties']['samples'] = self.samples
+        return struct
+
+
 class TouchSensor(BaseSensor):
 
     def __init__(self, refresh=1, port=2, *args, **kwargs):
@@ -48,6 +57,7 @@ class TouchSensor(BaseSensor):
     def do_reading(self):
         # true or false
         return self.upm_sensor.isPressed()
+
 
 class SoundSensor(BaseSensor):
 
@@ -61,11 +71,18 @@ class SoundSensor(BaseSensor):
         self.buffer = mic.uint16Array(128)
 
     def do_reading(self):
-        len = self.upm_sensor.getSampledWindow(2, 128, self.buffer);
-        if len > 0:
+        length = self.upm_sensor.getSampledWindow(2, 128, self.buffer);
+        if length > 0:
             return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, len)
         else:
             return 0
+
+    def get_structure(self):
+        struct = super(SoundSensor, self).get_structure()
+        struct['properties']['averageReading'] = self.threshContext.averageReading
+        struct['properties']['runningAverage'] = self.threshContext.runningAverage
+        struct['properties']['averagedOver'] = self.threshContext.averagedOver
+        return struct
 
 
 class GasSensor(BaseSensor):
@@ -80,8 +97,8 @@ class GasSensor(BaseSensor):
         self.buffer = gas.uint16Array(128)
 
     def do_reading(self):
-        len = self.upm_sensor.getSampledWindow(2, 128, self.buffer)
-        if len > 0:
+        length = self.upm_sensor.getSampledWindow(2, 128, self.buffer)
+        if length > 0:
             return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, len)
         else:
             return 0
