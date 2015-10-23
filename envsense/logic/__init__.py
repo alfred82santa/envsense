@@ -100,9 +100,9 @@ class AlertLogic(BaseLogic):
 
     @asyncio.coroutine
     def do_process(self):
-        alerts = [alrt for alrt in self.alerts if alrt['level'] == self.ALERT]
-        warns = [alrt for alrt in self.alerts if alrt['level'] == self.WARN]
-        infos = [alrt for alrt in self.alerts if alrt['level'] == self.INFO]
+        alerts = [alrt for alrt in self.alerts.values() if alrt['level'] == self.ALERT]
+        warns = [alrt for alrt in self.alerts.values() if alrt['level'] == self.WARN]
+        infos = [alrt for alrt in self.alerts.values() if alrt['level'] == self.INFO]
 
         actuator = self.app.actuator_manager.items['DisplayActuator']
 
@@ -127,7 +127,7 @@ class AlertLogic(BaseLogic):
                 actuator.line_1 = alrt['text']
             self.app.logic_manager.items['LedAlertLogic'].active = False
 
-        actuator.line_2 = "A: {} - W: {} - I: {}".format(len(alerts), len(warns), len(infos))
+        actuator.line_2 = "A:{};W:{};I:{}".format(len(alerts), len(warns), len(infos))
 
     def get_structure(self):
         struct = super(AlertLogic, self).get_structure()
