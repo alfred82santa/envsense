@@ -43,7 +43,21 @@ class BaseLogic(BaseDevice):
         pass
 
 
-class AlertLightLogic(BaseLogic):
+class AlertLogic(BaseLogic):
+
+    ALERT = 'alert'
+    WARN = 'warning'
+    INFO = 'information'
+
+    def __init__(self, *args, **kwargs):
+        super(AlertLogic, self).__init__(*args, **kwargs)
+        self.alerts = {}
+
+    def set_alert(self, device_name, level, text, buzzer=False):
+        self.alerts[device_name] = {'level': level, 'text': text, 'buzzer': buzzer}
+
+    def remove_alert(self, device_name):
+        del self.alerts[device_name]
 
     def do_process(self):
         if self.app.sensor_manager.items['light'].value > 100:

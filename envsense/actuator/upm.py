@@ -77,10 +77,3 @@ class DisplayActuator(BaseActuator):
         struct['properties']['line2'] = self.line_2
         struct['properties']['color'] = self.color
         return struct
-
-
-
-
-
-
-
