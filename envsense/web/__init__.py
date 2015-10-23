@@ -15,7 +15,7 @@ class EnvSenseWebApplication:
 
     device_types = {'sensor': {'manager': 'sensor_manager',
                                'error_prefix': '10'},
-                    'actuator': {'manager': 'sensor_manager',
+                    'actuator': {'manager': 'actuator_manager',
                                  'error_prefix': '20'},
                     'logic': {'manager': 'logic_manager',
                               'error_prefix': '30'}}
