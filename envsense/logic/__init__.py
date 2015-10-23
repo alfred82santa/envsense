@@ -56,8 +56,9 @@ class BuzzerAlertLogic(BaseLogic):
     @asyncio.coroutine
     def do_process(self):
         actuator = self.app.actuator_manager.items['BuzzerActuator']
+        import pyupm_buzzer as buzzer
         if self.active:
-            actuator.chord = actuator.buzzer.DO
+            actuator.chord = buzzer.DO
             self.active = False
             yield from asyncio.sleep(self.time)
         else:
@@ -75,11 +76,11 @@ class LedAlertLogic(BaseLogic):
         led_green = self.app.actuator_manager.items['GreenLedActuator']
         led_red = self.app.actuator_manager.items['RedLedActuator']
         if self.active:
-            led_green.value = False
+            led_green.status = False
         else:
-            led_green.value = True
+            led_green.status = True
 
-        led_red.value = not led_green.value
+        led_red.status = not led_green.status
 
 
 class AlertLogic(BaseLogic):
