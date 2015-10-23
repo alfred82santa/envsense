@@ -34,9 +34,9 @@ class UVLogic(BaseLogic):
         self.threshold_high = 0.7
 
     def do_process(self):
-        if self.app.sensor_manager.items['UVLogic'].value > self.threshold_high:
+        if self.app.sensor_manager.items['UVSensor'].value > self.threshold_high:
             self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'alert', 'UV ALERT: v='+ str(self.app.sensor_manager.items['UVSensor'].value), True)
-        elif self.app.sensor_manager.items['UVLogic'].value > self.threshold_low:
+        elif self.app.sensor_manager.items['UVSensor'].value > self.threshold_low:
             self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'warning', 'UV WARN: v='+ str(self.app.sensor_manager.items['UVSensor'].value), False)
         else:
             self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'information', 'UV INFO: v='+ str(self.app.sensor_manager.items['UVSensor'].value), False)
@@ -49,10 +49,10 @@ class LightLogic(BaseLogic):
         self.threshold = 15
 
     def do_process(self):
-        if self.app.sensor_manager.items['LightLogic'].value < self.threshold:
-            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ str(self.app.sensor_manager.items['LightLogic'].value), False)
+        if self.app.sensor_manager.items['LightSensor'].value < self.threshold:
+            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ str(self.app.sensor_manager.items['LightSensor'].value), False)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'information', 'Light INFO: v='+ str(self.app.sensor_manager.items['LightLogic'].value), False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'information', 'Light INFO: v='+ str(self.app.sensor_manager.items['LightSensor'].value), False)
 
 
 class TempLogic(BaseLogic):
@@ -65,13 +65,13 @@ class TempLogic(BaseLogic):
         self.threshold_high2 = 35
 
     def do_process(self):
-        if self.app.sensor_manager.items['TempLogic'].value > self.threshold_high2:
+        if self.app.sensor_manager.items['TempSensor'].value > self.threshold_high2:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ str(self.app.sensor_manager.items['TempSensor'].value), True)
-        elif self.app.sensor_manager.items['TemperatureLogic'].value > self.threshold_high1:
+        elif self.app.sensor_manager.items['TempSensor'].value > self.threshold_high1:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
-        elif self.app.sensor_manager.items['TemperatureLogic'].value < self.threshold_low2:
+        elif self.app.sensor_manager.items['TempSensor'].value < self.threshold_low2:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ str(self.app.sensor_manager.items['TempSensor'].value), True)
-        elif self.app.sensor_manager.items['TemperatureLogic'].value < self.threshold_low1:
+        elif self.app.sensor_manager.items['TempSensor'].value < self.threshold_low1:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
         else:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'information', 'TEMP INFO: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
@@ -82,6 +82,6 @@ class TouchLogic(BaseLogic):
         super(TouchLogic, self).__init__(*args, **kwargs)
 
     def do_process(self):
-        if self.app.sensor_manager.items['TouchLogic'].value:
+        if self.app.sensor_manager.items['TouchSensor'].value:
             self.app.logic_manager.items['BuzzerAlertLogic'].active = False
 
