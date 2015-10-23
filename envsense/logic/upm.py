@@ -1,3 +1,4 @@
+import asyncio
 from envsense.logic import BaseLogic
 
 class GasLogic(BaseLogic):
@@ -6,6 +7,7 @@ class GasLogic(BaseLogic):
         super(GasLogic, self).__init__(*args, **kwargs)
         self.threshold = 70
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['GasSensor'].value > self.threshold:
             self.app.logic_manager.items['AlertLogic'].set_alert('GasLogic', 'alert', 'GAS ALERT: v='+ str(self.app.sensor_manager.items['GasSensor'].value), True)
@@ -19,6 +21,7 @@ class SoundLogic(BaseLogic):
         super(SoundLogic, self).__init__(*args, **kwargs)
         self.threshold = 70
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['SoundSensor'].value > self.threshold:
             self.app.logic_manager.items['AlertLogic'].set_alert('SoundSensor', 'alert', 'SOUND ALERT: v='+ str(self.app.sensor_manager.items['SoundSensor'].value), False)
@@ -33,6 +36,7 @@ class UVLogic(BaseLogic):
         self.threshold_low = 0.5
         self.threshold_high = 0.7
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['UVSensor'].value > self.threshold_high:
             self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'alert', 'UV ALERT: v='+ str(self.app.sensor_manager.items['UVSensor'].value), True)
@@ -48,6 +52,7 @@ class LightLogic(BaseLogic):
         super(LightLogic, self).__init__(*args, **kwargs)
         self.threshold = 15
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['LightSensor'].value < self.threshold:
             self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ str(self.app.sensor_manager.items['LightSensor'].value), False)
@@ -64,6 +69,7 @@ class TempLogic(BaseLogic):
         self.threshold_high1 = 30
         self.threshold_high2 = 35
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['TempSensor'].value > self.threshold_high2:
             self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ str(self.app.sensor_manager.items['TempSensor'].value), True)
@@ -81,6 +87,7 @@ class TouchLogic(BaseLogic):
     def __init__(self, *args, **kwargs):
         super(TouchLogic, self).__init__(*args, **kwargs)
 
+    @asyncio.coroutine
     def do_process(self):
         if self.app.sensor_manager.items['TouchSensor'].value:
             self.app.logic_manager.items['BuzzerAlertLogic'].active = False
