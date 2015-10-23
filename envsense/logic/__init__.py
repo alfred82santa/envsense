@@ -67,8 +67,6 @@ class BuzzerAlertLogic(BaseLogic):
         import pyupm_buzzer as buzzer
         if self.active:
             actuator.chord = buzzer.DO
-            self.active = False
-            yield from asyncio.sleep(self.time)
         else:
             actuator.chord = None
 
@@ -122,6 +120,7 @@ class AlertLogic(BaseLogic):
             if len([a for a in alerts if a['buzzer']]):
                 self.app.logic_manager.items['BuzzerAlertLogic'].active = True
 
+
             self.app.logic_manager.items['LedAlertLogic'].active = True
 
         elif len(warns):
@@ -129,12 +128,14 @@ class AlertLogic(BaseLogic):
             alrt = warns[0]
             actuator.line_1 = alrt['text']
             self.app.logic_manager.items['LedAlertLogic'].active = True
+            self.app.logic_manager.items['BuzzerAlertLogic'].active = False
         else:
             actuator.color = (0, 255, 0)
             if len(infos):
                 alrt = infos[0]
                 actuator.line_1 = alrt['text']
             self.app.logic_manager.items['LedAlertLogic'].active = False
+            self.app.logic_manager.items['BuzzerAlertLogic'].active = False
 
         actuator.line_2 = "A:{};W:{};I:{}".format(len(alerts), len(warns), len(infos))
 

@@ -8,9 +8,9 @@ class GasLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['GasSensor'].value > self.threshold:
-            self.app.logic_manager.items['AlertLogic'].set_alert('GasLogic', 'alert', 'GAS ALERT: v='+ self.app.sensor_manager.items['GasSensor'].value, True)
+            self.app.logic_manager.items['AlertLogic'].set_alert('GasLogic', 'alert', 'GAS ALERT: v='+ str(self.app.sensor_manager.items['GasSensor'].value), True)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('GasLogic', 'information', 'GAS INFO: v='+ self.app.sensor_manager.items['GasSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('GasLogic', 'information', 'GAS INFO: v='+ str(self.app.sensor_manager.items['GasSensor'].value), False)
 
 
 class SoundLogic(BaseLogic):
@@ -21,9 +21,9 @@ class SoundLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['SoundSensor'].value > self.threshold:
-            self.app.logic_manager.items['AlertLogic'].set_alert('SoundSensor', 'alert', 'SOUND ALERT: v='+ self.app.sensor_manager.items['SoundSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('SoundSensor', 'alert', 'SOUND ALERT: v='+ str(self.app.sensor_manager.items['SoundSensor'].value), False)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('SoundSensor', 'information', 'SOUND INFO: v='+ self.app.sensor_manager.items['SoundSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('SoundSensor', 'information', 'SOUND INFO: v='+ str(self.app.sensor_manager.items['SoundSensor'].value), False)
 
 
 class UVLogic(BaseLogic):
@@ -35,11 +35,11 @@ class UVLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['UVLogic'].value > self.threshold_high:
-            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'alert', 'UV ALERT: v='+ self.app.sensor_manager.items['UVSensor'].value, True)
+            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'alert', 'UV ALERT: v='+ str(self.app.sensor_manager.items['UVSensor'].value), True)
         elif self.app.sensor_manager.items['UVLogic'].value > self.threshold_low:
-            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'warning', 'UV WARN: v='+ self.app.sensor_manager.items['UVSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'warning', 'UV WARN: v='+ str(self.app.sensor_manager.items['UVSensor'].value), False)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'information', 'UV INFO: v='+ self.app.sensor_manager.items['UVSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('UVSensor', 'information', 'UV INFO: v='+ str(self.app.sensor_manager.items['UVSensor'].value), False)
 
 
 class LightLogic(BaseLogic):
@@ -50,9 +50,9 @@ class LightLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['LightLogic'].value < self.threshold:
-            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ self.app.sensor_manager.items['LightLogic'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ str(self.app.sensor_manager.items['LightLogic'].value), False)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'information', 'Light INFO: v='+ self.app.sensor_manager.items['LightLogic'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'information', 'Light INFO: v='+ str(self.app.sensor_manager.items['LightLogic'].value), False)
 
 
 class TempLogic(BaseLogic):
@@ -66,15 +66,15 @@ class TempLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['TempLogic'].value > self.threshold_high2:
-            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ self.app.sensor_manager.items['TempSensor'].value, True)
+            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ str(self.app.sensor_manager.items['TempSensor'].value), True)
         elif self.app.sensor_manager.items['TemperatureLogic'].value > self.threshold_high1:
-            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ self.app.sensor_manager.items['TempSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
         elif self.app.sensor_manager.items['TemperatureLogic'].value < self.threshold_low2:
-            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ self.app.sensor_manager.items['TempSensor'].value, True)
+            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'alert', 'TEMP ALERT: v='+ str(self.app.sensor_manager.items['TempSensor'].value), True)
         elif self.app.sensor_manager.items['TemperatureLogic'].value < self.threshold_low1:
-            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ self.app.sensor_manager.items['TempSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'warning', 'TEMP WARN: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
         else:
-            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'information', 'TEMP INFO: v='+ self.app.sensor_manager.items['TempSensor'].value, False)
+            self.app.logic_manager.items['AlertLogic'].set_alert('TempSensor', 'information', 'TEMP INFO: v='+ str(self.app.sensor_manager.items['TempSensor'].value), False)
 
 class TouchLogic(BaseLogic):
 
@@ -83,4 +83,5 @@ class TouchLogic(BaseLogic):
 
     def do_process(self):
         if self.app.sensor_manager.items['TouchLogic'].value:
-            self.app.logic_manager.items['AlertLogic'].remove_alert('TouchSensor')
+            self.app.logic_manager.items['BuzzerAlertLogic'].active = False
+
