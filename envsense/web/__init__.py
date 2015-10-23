@@ -66,7 +66,7 @@ class EnvSenseWebApplication:
         return device_type
 
     def get_device(self, device_type, device_name, error_prefix):
-        manager = getattr(self.app, self.device_types[device_type])
+        manager = getattr(self.app, self.device_types[device_type]['manager'])
         try:
             device = manager.items[device_name]
             return device
@@ -89,7 +89,7 @@ class EnvSenseWebApplication:
         except ResponseError as ex:
             return ex.response
 
-        manager = getattr(self.app, self.device_types[device_type])
+        manager = getattr(self.app, self.device_types[device_type]['manager'])
 
         return web.Response(text=json.dumps({'devices': list(manager.items.keys())}),
                             content_type='application/json',
