@@ -1,13 +1,13 @@
 import asyncio
-from envsense.manager import BaseManager
+from envsense.devices import BaseDeviceManager
 
 
-class ActuatorManager(BaseManager):
+class ActuatorDeviceManager(BaseDeviceManager):
 
     CONFIG_KEY = 'actuators'
 
     def __init__(self,  app):
-        super(ActuatorManager, self).__init__(app)
+        super(ActuatorDeviceManager, self).__init__(app)
         # Add sensors
         # self.items['name'] = Actuator(refresh=1)
 
@@ -18,7 +18,7 @@ class ActuatorManager(BaseManager):
 
 
 def factory(app):
-    return ActuatorManager(app)
+    return ActuatorDeviceManager(app)
 
 
 class BaseActuator:
@@ -28,8 +28,12 @@ class BaseActuator:
 
     @asyncio.coroutine
     def start(self):
-        self.do_writing()
-        yield from asyncio.sleep(self.refresh)
+        while True:
+            self.do_writing()
+            yield from asyncio.sleep(self.refresh)
 
     def do_writing(self):
         pass
+
+    def get_structure(self):
+        return {'properties': {'refresh': self.refresh}}

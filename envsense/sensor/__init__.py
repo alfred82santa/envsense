@@ -1,14 +1,14 @@
 import asyncio
 
-from envsense.manager import BaseManager
+from envsense.devices import BaseDeviceManager, BaseDevice
 
 
-class SensorManager(BaseManager):
+class SensorDeviceManager(BaseDeviceManager):
 
     CONFIG_KEY = 'sensors'
 
     def __init__(self,  app):
-        super(SensorManager, self).__init__(app)
+        super(SensorDeviceManager, self).__init__(app)
         # Add sensors
         from .upm import LightSensor, TempSensor, UVSensor, TouchSensor, SoundSensor, GasSensor
         self.items['LightSensor'] = LightSensor(refresh=60)
@@ -25,10 +25,10 @@ class SensorManager(BaseManager):
 
 
 def factory(app):
-    return SensorManager(app)
+    return SensorDeviceManager(app)
 
 
-class BaseSensor:
+class BaseSensor(BaseDevice):
 
     def __init__(self, refresh=1, *args, **kwargs):
         self.refresh = refresh
@@ -36,11 +36,16 @@ class BaseSensor:
 
     @asyncio.coroutine
     def start(self):
-        self.value = self.do_reading()
-        yield from asyncio.sleep(self.refresh)
+        while True:
+            self.value = self.do_reading()
+            yield from asyncio.sleep(self.refresh)
 
     def do_reading(self):
         pass
+
+    def get_structure(self):
+        return {'properties': {'refresh': self.refresh},
+                'readOnlyProperties': {'value': self.value}}
 
 
 

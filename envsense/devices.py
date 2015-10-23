@@ -2,7 +2,7 @@ import asyncio
 import weakref
 
 
-class BaseManager:
+class BaseDeviceManager:
 
     CONFIG_KEY = 'base'
 
@@ -20,3 +20,7 @@ class BaseManager:
         pass
 
 
+class BaseDevice:
+
+    def get_structure(self):
+        return {}

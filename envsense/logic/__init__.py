@@ -1,14 +1,14 @@
 import asyncio
 import weakref
-from envsense.manager import BaseManager
+from envsense.devices import BaseDeviceManager
 
 
-class LogicManager(BaseManager):
+class LogicDeviceManager(BaseDeviceManager):
 
     CONFIG_KEY = 'logics'
 
     def __init__(self,  app):
-        super(LogicManager, self).__init__(app)
+        super(LogicDeviceManager, self).__init__(app)
         # Add sensors
         # self.items['name'] = Logic(app, refresh=1)
 
@@ -19,7 +19,7 @@ class LogicManager(BaseManager):
 
 
 def factory(app):
-    return LogicManager(app)
+    return LogicDeviceManager(app)
 
 
 class BaseLogic:
@@ -34,8 +34,9 @@ class BaseLogic:
 
     @asyncio.coroutine
     def start(self):
-        self.do_process()
-        yield from asyncio.sleep(self.refresh)
+        while True:
+            self.do_process()
+            yield from asyncio.sleep(self.refresh)
 
     def do_process(self):
         pass

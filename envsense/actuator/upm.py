@@ -12,13 +12,20 @@ class LedActuator(BaseActuator):
     def __init__(self, refresh=1, port=4, *args, **kwargs):
         super(LedActuator, self).__init__(refresh=refresh, *args, **kwargs)
         self.upm_sensor = grove.GroveLed(port)
+        self.status = False
 
-    def do_writing(self, status=false):
+    def do_writing(self, status=False):
         # status false -> led off, true ->  led on
-        if status == false:
-            self.upm_sensor.off()
-        else:
+        if self.status:
             self.upm_sensor.on()
+        else:
+            self.upm_sensor.off()
+
+    def get_structure(self):
+        struct = super(LedActuator, self).get_structure()
+        struct['properties']['status'] = self.status
+        return struct
+
 
 class BuzzerActuator(BaseActuator):
 
@@ -28,13 +35,17 @@ class BuzzerActuator(BaseActuator):
         self.chords = [buzzer.DO, buzzer.RE, buzzer.MI, buzzer.FA,
           buzzer.SOL, buzzer.LA, buzzer.SI, buzzer.DO,
           buzzer.SI]
+        self.chord = buzzer.DO
+        self.time = 1000000
 
-    def do_writing(self, music=self.chords, pause_notes=0.1):
-        # Play music notes pausing for 0.1 seconds between notes
-        for chord_ind in range (0,len(music)):
-            # play each note for one second
-            print(buzzer.playSound(self.chords[chord_ind], 1000000))
-            time.sleep(pause_notes)
+    def do_writing(self):
+        buzzer.playSound(self.chord, self.time)
+
+    def get_structure(self):
+        struct = super(LedActuator, self).get_structure()
+        struct['properties']['chord'] = self.chord
+        struct['properties']['time'] = self.time
+        return struct
 
 
 class DisplayActuator(BaseActuator):
@@ -42,13 +53,14 @@ class DisplayActuator(BaseActuator):
     def __init__(self, refresh=1, lcd_address=0x3E, rgb_address=0x62, *args, **kwargs):
         super(DisplayActuator, self).__init__(refresh=refresh, *args, **kwargs)
         self.upm_sensor = i2clcd.Jhd1313m1(0, lcd_address, rgb_address)
+        self.color = (255, 0, 0)
+        self.position = (0, 0)
+        self.text = "Hello"
 
-
-    def do_writing(self, color=(0,0), position=(255,0,0), text="Hello"):
-        self.upm_sensor.setColor(*color)
-        self.upm_sensor.setPosition(*position)
-        self.upm.write(text)
-        time.sleep(1000000)
+    def do_writing(self):
+        self.upm_sensor.setColor(*self.color)
+        self.upm_sensor.setPosition(*self.position)
+        self.upm.write(self.text)
 
 
 
