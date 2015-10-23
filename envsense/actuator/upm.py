@@ -55,13 +55,28 @@ class DisplayActuator(BaseActuator):
         super(DisplayActuator, self).__init__(refresh=refresh, *args, **kwargs)
         self.upm_sensor = i2clcd.Jhd1313m1(0, lcd_address, rgb_address)
         self.color = (255, 0, 0)
-        self.cursor = (0, 0)
-        self.text = "Hello"
+        self.line_1 = 'Line 1'
+        self.line_2 = 'Line 2'
 
     def do_writing(self):
         self.upm_sensor.setColor(*self.color)
-        self.upm_sensor.setCursor(*self.cursor)
-        self.upm_sensor.write(self.text)
+        self.upm_sensor.setCursor(0, 0)
+        self.upm_sensor.write(" " * 16)
+        self.upm_sensor.setCursor(0, 1)
+        self.upm_sensor.write(" " * 16)
+
+        self.upm_sensor.setCursor(0, 0)
+        self.upm_sensor.write(self.line_1)
+
+        self.upm_sensor.setCursor(0, 1)
+        self.upm_sensor.write(self.line_2)
+
+    def get_structure(self):
+        struct = super(DisplayActuator, self).get_structure()
+        struct['properties']['line1'] = self.line_1
+        struct['properties']['line2'] = self.line_2
+        struct['properties']['color'] = self.color
+        return struct
 
 
 
