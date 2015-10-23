@@ -51,7 +51,7 @@ class LightLogic(BaseLogic):
     def do_process(self):
         if self.app.sensor_manager.items['LightLogic'].value < self.threshold:
             self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'warning', 'Light WARN: v='+ self.app.sensor_manager.items['LightLogic'].value, False)
-         else:
+        else:
             self.app.logic_manager.items['AlertLogic'].set_alert('LightSensor', 'information', 'Light INFO: v='+ self.app.sensor_manager.items['LightLogic'].value, False)
 
 
