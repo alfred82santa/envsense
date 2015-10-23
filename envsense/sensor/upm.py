@@ -73,9 +73,33 @@ class SoundSensor(BaseSensor):
     def do_reading(self):
         length = self.upm_sensor.getSampledWindow(2, 128, self.buffer);
         if length > 0:
-            return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, len)
+            return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, length)
         else:
             return 0
+
+    @property
+    def average_reading(self):
+        return self.threshContext.averageReading
+
+    @average_reading.setter
+    def set_average_reading(self, value):
+        self.threshContext.averageReading = value
+
+    @property
+    def running_average(self):
+        return self.threshContext.runningAverage
+
+    @running_average.setter
+    def set_running_average(self, value):
+        self.threshContext.runningAverage = value
+
+    @property
+    def averaged_over(self):
+        return self.threshContext.averagedOver
+
+    @averaged_over.setter
+    def set_average_reading(self, value):
+        self.threshContext.averagedOver = value
 
     def get_structure(self):
         struct = super(SoundSensor, self).get_structure()
@@ -96,9 +120,33 @@ class GasSensor(BaseSensor):
         self.threshContext.averagedOver = averagedOver
         self.buffer = gas.uint16Array(128)
 
+    @property
+    def average_reading(self):
+        return self.threshContext.averageReading
+
+    @average_reading.setter
+    def set_average_reading(self, value):
+        self.threshContext.averageReading = value
+
+    @property
+    def running_average(self):
+        return self.threshContext.runningAverage
+
+    @running_average.setter
+    def set_running_average(self, value):
+        self.threshContext.runningAverage = value
+
+    @property
+    def averaged_over(self):
+        return self.threshContext.averagedOver
+
+    @averaged_over.setter
+    def set_average_reading(self, value):
+        self.threshContext.averagedOver = value
+
     def do_reading(self):
         length = self.upm_sensor.getSampledWindow(2, 128, self.buffer)
         if length > 0:
-            return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, len)
+            return self.upm_sensor.findThreshold(self.threshContext, 30, self.buffer, length)
         else:
             return 0
