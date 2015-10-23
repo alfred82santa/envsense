@@ -33,13 +33,14 @@ class BuzzerActuator(BaseActuator):
         super(BuzzerActuator, self).__init__(refresh=refresh, *args, **kwargs)
         self.upm_sensor = buzzer.Buzzer(port)
         self.chords = [buzzer.DO, buzzer.RE, buzzer.MI, buzzer.FA,
-          buzzer.SOL, buzzer.LA, buzzer.SI, buzzer.DO,
-          buzzer.SI]
-        self.chord = buzzer.DO
+                       buzzer.SOL, buzzer.LA, buzzer.SI, buzzer.DO,
+                       buzzer.SI]
+        self.chord = None
         self.time = 1000000
 
     def do_writing(self):
-        buzzer.playSound(self.chord, self.time)
+        if self.chord:
+            buzzer.playSound(self.chord, self.time)
 
     def get_structure(self):
         struct = super(LedActuator, self).get_structure()
